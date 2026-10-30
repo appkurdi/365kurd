@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurd365 - خشتەی یارییەکان</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body { font-family: 'Cairo', Tahoma, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        
+        /* هێدەری سەرەوە */
+        .header { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 15px; text-align: center; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+        
+        .container { max-width: 700px; margin: 20px auto; padding: 0 10px; }
+        
+        /* دوگمەی پەخشی ڕاستەوخۆ */
+        .stream-btn-container { text-align: center; margin: 25px 0; }
+        .stream-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 65, 108, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+        }
+
+        /* شاردنەوەی لۆگۆکانی 365Scores */
+        #powered-by, .powered-by, [id^="powered-by"] { display: none !important; }
+        
+        /* دیزاینی کارتەکانی خولەکان */
+        .league-card { 
+            background: white; 
+            border-radius: 12px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+        }
+        .league-header { 
+            background: #ffffff; 
+            padding: 15px; 
+            display: flex; 
+            align-items: center; 
+            border-bottom: 2px solid #e0e5ec; 
+            color: #1e3c72; 
+            font-weight: bold; 
+            font-size: 18px; 
+            justify-content: center;
+        }
+        .league-header img { 
+            width: 35px; 
+            height: 35px; 
+            margin-left: 10px; 
+        }
+        .widget-wrapper { 
+            padding: 0; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Kurd365</h1>
+    </div>
+    <div class="container">
+        
+        <!-- دوگمەی چوون بۆ سێرڤەری پەخش -->
+        <div class="stream-btn-container">
+            <a href="https://syriashdab.com/" target="_blank" class="stream-btn">
+                سەیرکردنی یارییەکان ڕاستەوخۆ 🔴
+            </a>
+        </div>
+
+        <!-- خولی ئەستێرەکانی عێراق -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="خولی ئەستێرەکانی عێراق">
+                <span>خولی ئەستێرەکانی عێراق</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="6822" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- چامپیۆنزلیگ -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/572" alt="خولی یانە پاڵەوانەکانی ئەوروپا">
+                <span>خولی یانە پاڵەوانەکانی ئەوروپا</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="572" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- خولی ئینگلیزی -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="خولی ئینگلیزی (پریمەرلیگ)">
+                <span>خولی ئینگلیزی (پریمەرلیگ)</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="7" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- خولی ئیسپانی -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="خولی ئیسپانی (لالیگا)">
+                <span>خولی ئیسپانی (لالیگا)</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="11" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- خولی ئیتاڵی -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/17" alt="خولی ئیتاڵی">
+                <span>خولی ئیتاڵی</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="17" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- خولی ئەڵمانی -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="خولی ئەڵمانی">
+                <span>خولی ئەڵمانی</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="25" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+        <!-- خولی فەڕەنسی -->
+        <div class="league-card">
+            <div class="league-header">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="خولی فەڕەنسی">
+                <span>خولی فەڕەنسی</span>
+            </div>
+            <div class="widget-wrapper">
+                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="34" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- سکریپتی سەرەکی 365Scores کە داتاکان دەهێنێت بە شێوەی ڕاستەوخۆ -->
+    <script src="https://widgets.365scores.com/main.js"></script>
+</body>
+</html>
