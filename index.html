@@ -5,160 +5,300 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kurd365 - خشتەی یارییەکان</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-        body { font-family: 'Cairo', Tahoma, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         
-        /* هێدەری سەرەوە */
-        .header { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 15px; text-align: center; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
-        
-        .container { max-width: 700px; margin: 20px auto; padding: 0 10px; }
-        
-        /* دوگمەی پەخشی ڕاستەوخۆ */
-        .stream-btn-container { text-align: center; margin: 25px 0; }
-        .stream-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 65, 108, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+        :root {
+            --primary-bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --header-gradient-1: #1a2a6c;
+            --header-gradient-2: #b21f1f;
+            --active-tab: #1a2a6c;
         }
 
-        /* شاردنەوەی لۆگۆکانی 365Scores */
-        #powered-by, .powered-by, [id^="powered-by"] { display: none !important; }
+        body { 
+            font-family: 'Cairo', Tahoma, sans-serif; 
+            background-color: var(--primary-bg); 
+            margin: 0; 
+            padding: 0; 
+            padding-bottom: 50px; 
+            -webkit-tap-highlight-color: transparent;
+        }
         
-        /* دیزاینی کارتەکانی خولەکان */
-        .league-card { 
-            background: white; 
-            border-radius: 12px; 
-            margin-bottom: 30px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            overflow: hidden; 
-        }
-        .league-header { 
-            background: #ffffff; 
-            padding: 15px; 
-            display: flex; 
-            align-items: center; 
-            border-bottom: 2px solid #e0e5ec; 
-            color: #1e3c72; 
-            font-weight: bold; 
-            font-size: 18px; 
+        /* هێدەری شوشەیی */
+        .navbar { 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 15px 20px; 
+            display: flex;
             justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
-        .league-header img { 
-            width: 35px; 
-            height: 35px; 
-            margin-left: 10px; 
+        
+        .navbar h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            font-weight: 800; 
+            background: linear-gradient(45deg, var(--header-gradient-1), var(--header-gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+        
+        .container { 
+            max-width: 750px; 
+            margin: 20px auto; 
+            padding: 0 15px; 
+        }
+        
+        /* بانەری پەخشی ڕاستەوخۆ */
+        .stream-banner {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(255, 75, 43, 0.3);
+            display: block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stream-banner:hover { transform: scale(1.02); }
+        .stream-banner-content {
+            color: white; font-size: 18px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            position: relative; z-index: 2;
+        }
+        .live-dot {
+            width: 12px; height: 12px; background-color: #fff; border-radius: 50%;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* سیستەمی تابەکان (Tabs) */
+        .tabs-nav {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 5px 5px 15px 5px;
+            margin-bottom: 15px;
+            scrollbar-width: none; /* بۆ فایەرفۆکس */
+            -ms-overflow-style: none; /* بۆ ئینتەرنێت ئێکسپلۆرەر */
+        }
+        .tabs-nav::-webkit-scrollbar {
+            display: none; /* شاردنەوەی سکڕۆڵ لە کرۆم و سەفاری */
+        }
+        
+        .tab-btn {
+            background: #ffffff;
+            border: 1px solid #e0e5ec;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #555;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        .tab-btn img {
+            width: 22px;
+            height: 22px;
+        }
+        .tab-btn:hover {
+            background: #f8f9fa;
+        }
+        .tab-btn.active {
+            background: var(--active-tab);
+            color: #ffffff;
+            border-color: var(--active-tab);
+            box-shadow: 0 4px 12px rgba(26, 42, 108, 0.3);
+        }
+        
+        /* ناوەڕۆکی تابەکان */
+        .tab-content {
+            display: none; /* لە سەرەتادا هەمووی شاراوەیە */
+            animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* دیزاینی کارتی خولەکان بۆ ناو تابەکان */
+        .league-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04); 
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
         }
         .widget-wrapper { 
-            padding: 0; 
+            padding: 5px; 
+            background: #fff;
         }
+
+        /* شاردنەوەی سەرچاوە و لۆگۆکانی 365Scores */
+        #powered-by, .powered-by, [id^="powered-by"] { display: none !important; }
+        
     </style>
 </head>
 <body>
-    <div class="header">
+    
+    <!-- هێدەری سەرەوە -->
+    <div class="navbar">
         <h1>Kurd365</h1>
     </div>
+
     <div class="container">
         
-        <!-- دوگمەی چوون بۆ سێرڤەری پەخش -->
-        <div class="stream-btn-container">
-            <a href="https://syriashdab.com/" target="_blank" class="stream-btn">
-                سەیرکردنی یارییەکان ڕاستەوخۆ 🔴
-            </a>
+        <!-- بانەری پەخشی ڕاستەوخۆ -->
+        <a href="https://syriashdab.com/" target="_blank" class="stream-banner">
+            <div class="stream-banner-content">
+                <span>سەیرکردنی یارییەکان ڕاستەوخۆ</span>
+                <div class="live-dot"></div>
+            </div>
+        </a>
+
+        <!-- شریتی تابەکان -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'league-6822')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="عێراق">
+                عێراق
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-572')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/572" alt="ئەوروپا">
+                ئەوروپا
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-7')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="ئینگلتەرا">
+                ئینگلتەرا
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-11')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="ئیسپانیا">
+                ئیسپانیا
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-17')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/17" alt="ئیتاڵیا">
+                ئیتاڵیا
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-25')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="ئەڵمانیا">
+                ئەڵمانیا
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'league-34')">
+                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="فەڕەنسا">
+                فەڕەنسا
+            </button>
         </div>
 
-        <!-- خولی ئەستێرەکانی عێراق -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/6822" alt="خولی ئەستێرەکانی عێراق">
-                <span>خولی ئەستێرەکانی عێراق</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="6822" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
-            </div>
-        </div>
-
-        <!-- چامپیۆنزلیگ -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/572" alt="خولی یانە پاڵەوانەکانی ئەوروپا">
-                <span>خولی یانە پاڵەوانەکانی ئەوروپا</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="572" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
-            </div>
-        </div>
-
-        <!-- خولی ئینگلیزی -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/7" alt="خولی ئینگلیزی (پریمەرلیگ)">
-                <span>خولی ئینگلیزی (پریمەرلیگ)</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="7" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
-            </div>
-        </div>
-
-        <!-- خولی ئیسپانی -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/11" alt="خولی ئیسپانی (لالیگا)">
-                <span>خولی ئیسپانی (لالیگا)</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="11" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
-            </div>
-        </div>
-
-        <!-- خولی ئیتاڵی -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/17" alt="خولی ئیتاڵی">
-                <span>خولی ئیتاڵی</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="17" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        <!-- ناوەڕۆکی تابەکان (یارییەکان) -->
+        
+        <!-- تاب: عێراق -->
+        <div id="league-6822" class="tab-content" style="display: block;">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="6822" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
             </div>
         </div>
 
-        <!-- خولی ئەڵمانی -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/25" alt="خولی ئەڵمانی">
-                <span>خولی ئەڵمانی</span>
-            </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="25" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        <!-- تاب: چامپیۆنزلیگ -->
+        <div id="league-572" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="572" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
             </div>
         </div>
 
-        <!-- خولی فەڕەنسی -->
-        <div class="league-card">
-            <div class="league-header">
-                <img src="https://imagecache.365scores.com/image/upload/f_auto,w_48,h_48,c_limit,q_auto/v2/Competitions/34" alt="خولی فەڕەنسی">
-                <span>خولی فەڕەنسی</span>
+        <!-- تاب: ئینگلتەرا -->
+        <div id="league-7" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="7" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
             </div>
-            <div class="widget-wrapper">
-                <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="34" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+        </div>
+
+        <!-- تاب: ئیسپانیا -->
+        <div id="league-11" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="11" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تاب: ئیتاڵیا -->
+        <div id="league-17" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="17" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تاب: ئەڵمانیا -->
+        <div id="league-25" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="25" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تاب: فەڕەنسا -->
+        <div id="league-34" class="tab-content">
+            <div class="league-card">
+                <div class="widget-wrapper">
+                    <div data-widget-type="entityScores" data-entity-type="league" data-entity-id="34" data-lang="ar" data-widget-id="0584ff28-08a8-43ee-a21e-604bb002689f"></div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- سکریپتی سەرەکی 365Scores کە داتاکان دەهێنێت بە شێوەی ڕاستەوخۆ -->
+    <!-- سکریپتی گۆڕینی تابەکان -->
+    <script>
+        function openTab(evt, leagueId) {
+            // شاردنەوەی هەموو تابەکان
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            // سڕینەوەی کلاسی active لە هەموو دوگمەکان
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // پیشاندانی تابی دیاریکراو و زیادکردنی active بۆ دوگمەکەی
+            document.getElementById(leagueId).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+    <!-- سکریپتی سەرەکی 365Scores -->
     <script src="https://widgets.365scores.com/main.js"></script>
 </body>
 </html>
